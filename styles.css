@@ -1,0 +1,60 @@
+#page {
+	background-color: #e9e9e9;
+	font-family: Arial;
+}
+
+#menu {
+	display: flex;
+	justify-content: space-around;
+	order : 1;
+	margin-left: 20px;
+	margin-right:20px;
+	justify-content: space-between;
+	width:800px;
+}
+.menu_item{
+	padding:5px;
+	border:2px #000000 solid;
+	border-radius: 12px;
+	font-size: 12px;
+}
+
+.menu_item:hover {
+	background-color: #000000;
+	color:#999999;
+}
+
+
+
+
+
+
+
+
+#frontbar{
+	margin-top: 10px;
+	display: flex;
+	justify-content: center;
+}
+#logo_title {
+	font-size: 25px;
+	order:-1;
+}
+
+#logo_image {
+	margin-top: 15px;
+	order:0;
+	margin-left: 15px;
+
+}
+#logo_restaurinaux {
+	order: 0;
+	display: flex;
+	align-items: center;
+}
+
+
+
+#frontbar {
+	align-items: center;
+}
