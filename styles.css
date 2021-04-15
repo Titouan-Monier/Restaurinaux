@@ -19,17 +19,35 @@
 	font-size: 12px;
 }
 
+
 .menu_item:hover {
 	background-color: #000000;
 	color:#999999;
 }
 
+#filtres{
+	display: flex;
+	justify-content: left;
+}
+#filtre{
 
-
-
-
-
-
+	margin-left: 20px;
+	margin-right: 20px;
+}
+#notes{
+	border: 2px #000000 solid;
+	margin-left: 20px;
+	margin-right: 20px;
+	padding:5px;
+	border-radius: 12px;
+}
+#prix{
+	border: 2px #000000 solid;
+	margin-left: 20px;
+	margin-right: 20px;
+	padding:5px;
+	border-radius: 12px;
+}
 
 #frontbar{
 	margin-top: 10px;
@@ -53,8 +71,58 @@
 	align-items: center;
 }
 
-
+#mode_nuit {
+	order: 2;
+}
 
 #frontbar {
 	align-items: center;
+}
+#mapbx {
+	display:flex;
+	justify-content: right;
+}
+#mediumbar {
+	display: flex;
+}
+#thefourth {
+	display: flex;
+}
+.sheet{
+
+	margin: 20px 20px 20px 20px;
+	border: 2px #000000 solid;
+}
+
+#cochon{
+	margin: 20px 20px 20px 20px;
+}
+#oeuf{
+	margin: 20px 20px 20px 20px;
+}
+#japon {
+	margin: 20px 20px 20px 20px;
+}
+
+#bar {
+	margin: 20px 20px 20px 20px;
+}
+#texte1{
+text-align: center;
+}
+#texte2{
+	text-align: center;
+
+}
+#texte3{
+	text-align: center;
+
+}
+#texte4{
+	text-align: center;
+
+}
+
+.checked {
+	color: orange;
 }
