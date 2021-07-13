@@ -8,7 +8,7 @@
 
 }
 
-#menu {	
+#menu {
 	display: flex;
 	justify-content: space-around;
 	order : 1;
@@ -37,9 +37,10 @@
 #filtres{
 	display: flex;
 	justify-content: left;
+	width : 1100px;
 }
 #filtre{
-	
+
 	margin-left: 20px;
 	margin-right: 20px;
 }
@@ -51,9 +52,9 @@
 	border-radius: 12px;
 }
 .dark #notes{
-	border: 2px #ffffff solid;	
+	border: 2px #ffffff solid;
 }
-	
+
 
 
 #prix{
@@ -106,7 +107,7 @@
 	display: flex;
 }
 .sheet{
-	
+
 	margin: 20px 20px 20px 20px;
 	border: 2px #000000 solid;
 
@@ -147,4 +148,15 @@ text-align: center;
 
 .checked {
 	color: orange;
+}
+
+#filtres-container {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+#mediumbar {
+	display: flex;
+	justify-content: center;
+
 }
