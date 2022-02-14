@@ -6,3 +6,11 @@ Lien vers le site : https://titouan-monier.github.io/Restaurinaux/
 
 Maquette du site:
 ![maquette](Maquette.png "Maquette")
+
+14/02/2022 : Le Projet Restaurinaux est relancé en projet professionnel avec le CESI.
+Il va devoir respecter un cahier des charges bien précis.
+Les Objectifs vont être :
+  I- Analayse Fonctionnelle et modélisation de la base de donnée
+  II-Refonte Graphique en html et css 
+  III-Création de la base de donnée avec SQLLite
+  IV-Création d'une API en Java
