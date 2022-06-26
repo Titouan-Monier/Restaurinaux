@@ -11,6 +11,6 @@ Maquette du site:
 Il va devoir respecter un cahier des charges bien précis.
 Les Objectifs vont être :
   I- Analayse Fonctionnelle et modélisation de la base de donnée
-  II-Refonte Graphique en html/css et Bootstrap
-  III-Création de la base de donnée avec Phpmyadmin
-  IV-Création du back en Php
+  II-Refonte Graphique en html et css 
+  III-Création de la base de donnée avec SQLLite
+  IV-Création d'une API en Java
