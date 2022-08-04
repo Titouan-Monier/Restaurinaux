@@ -2,8 +2,9 @@
 $pdo = new PDO('mysql:host=localhost;port=3306;dbname=restaurinaux','root','');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $errors = [];
+
 $email = '';
-$pwd = '';
+$password = '';
 $first_name='';
 $last_name='';
 $country='';
@@ -13,7 +14,7 @@ $gender='';
 $city= '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
   $email = $_POST['email'];
-  $pwd = $_POST['pwd'];
+  $password = $_POST['password'];
   $first_name = $_POST['first_name'];
   $last_name = $_POST['last_name'];
   $country = $_POST['country'];
@@ -21,13 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
   $adress = $_POST['adress'];
   $gender = $_POST['gender'];
   $city = $_POST['city'];
-  $pwd = password_hash($pwd, PASSWORD_DEFAULT);
+  $password = password_hash($password, PASSWORD_DEFAULT);
   
   if (!$email){
     $errors[] = 'Le mail est requis';
   }
   
-  if (!$pwd){
+  if (!$password){
     $errors[] = 'Le mot de passe est requis';
   }
   if (!$first_name){
@@ -53,13 +54,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
   }
   if (empty($errors)){
 
-  $statement = $pdo->prepare("INSERT INTO user (email, pwd, first_name, last_name, country, city, zip, adress, gender)
-              VALUES(:email, :pwd, :first_name, :last_name, :country, :city, :zip, :adress, :gender)
+  $statement = $pdo->prepare("INSERT INTO user (email, password, first_name, last_name, country, city, zip, adress, gender)
+              VALUES(:email, :password, :first_name, :last_name, :country, :city, :zip, :adress, :gender)
             ");
     
 
   $statement ->bindValue(':email', $email);
-  $statement ->bindValue(':pwd', $pwd);
+  $statement ->bindValue(':password', $password);
   $statement ->bindValue(':first_name', $first_name);
   $statement ->bindValue(':last_name', $last_name);
   $statement ->bindValue(':zip', $zip);
@@ -68,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
   $statement ->bindValue(':gender', $gender);
   $statement ->bindValue(':city', $city);
   $statement ->execute();
+  header("Location: login.php");
   }
 }
 
@@ -104,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 					</div>
 					<div mb-3>
 						<label class="form-label">mot de passe</label>
-						<input type="password" class="form-control" id="exampleInputPassword1" name="pwd" value="<?php echo $pwd ?>" placeholder="mot de passe">
+						<input type="password" class="form-control" id="exampleInputPassword1" name="password" value="<?php echo $password ?>" placeholder="mot de passe">
 					</div>
 					<div mb-3>	
 						<label class="form-label">Nom</label>
