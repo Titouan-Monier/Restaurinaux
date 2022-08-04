@@ -1,4 +1,15 @@
 <?php
+session_start();
+
+$isConnected = isset($_SESSION['email']);
+$isAdmin = $isConnected && ($_SESSION['admin'] === "1");
+
+// redirection si l'user n'est pas admin
+if(!$isConnected || !$isAdmin){
+    header("Location: login.php");
+    exit(); 
+
+  }
 $pdo= new PDO ('mysql:host=localhost; port=3306; dbname=restaurinaux', 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -24,7 +35,7 @@ $restaurants = $statement->fetchAll(PDO::FETCH_ASSOC);
     <table class="table">
     <thead>
       <tr>
-        
+        <th scope="col"> Nombre </th>
         <th scope="col">Type</th>
         <th scope="col">Prix</th>
         <th scope="col">Adresse</th>
@@ -35,9 +46,10 @@ $restaurants = $statement->fetchAll(PDO::FETCH_ASSOC);
     <tbody>
       <!-- Fait apparaitre chaque ligne de la table restaurant -->
       <?php foreach ($restaurants as $i => $restaurant): ?>
+
         <tr>
           <th scope="row"><?php echo $i + 1 ?></th>
-          <td></td>
+          
           <td><?php echo $restaurant['type'] ?></td>
           <td><?php echo $restaurant['price'] ?></td>
           <td><?php echo $restaurant['adress'] ?></td>
