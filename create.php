@@ -3,54 +3,70 @@ $pdo = new PDO('mysql:host=localhost;port=3306;dbname=restaurinaux','root','');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $errors = [];
 $adress = '';
-$note = '';
 $type='';
-$image='';
 $price='';
+$nom='';
+
 
 //requête post attribuant la donnée rentré au variable
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+  $nom = $_POST['nom'];
   $adress = $_POST['adress'];
-  $note = $_POST['note'];
-  $type = $_POST['first_name'];
-  $image = $_POST['image'];
   $price = $_POST['price'];
-
+  $type = $_POST['type'];
   //affichage d'erreur en front si les champs ne sont pas remplies
   if (!$adress){
     $errors[] = 'L\'adresse est requise';
   }
-  
-  if (!$note){
-    $errors[] = 'La note est requise';
-  }
+
   if (!$type){
     $errors[] = 'Le type est requis';
   }
-  if (!$image){
-    $errors[] = 'L\'image est requise';
+  if (!$nom){
+    $errors[] = 'Le nom est requis';
   }
   if (!$price){
     $errors[] = 'Le prix est requis';
   }
-  
+  //création du dossier images
+  if(!is_dir('images')){
+    mkdir('images');
+  }
   //si il n'y a pas d'erreurs on prepare puis execute la requete
   if (empty($errors)){
+    //attribution de la valeur image en la bougeant du formulaire vers mon dossier
+    $image = $_FILES['image'] ?? null;
+    $imagePath='';
+    if ($image) {
+      $imagePath= 'images/'.randomString(8).'/'.$image['name'];
+      mkdir(dirname($imagePath));
+      move_uploaded_file($image['tmp_name'],$imagePath);
+    }
 
-  $statement = $pdo->prepare("INSERT INTO restaurant (adress, note, type, image, price)
-              VALUES(:adress, :note, :type, :image, :price)
+  $statement = $pdo->prepare("INSERT INTO restaurant (adress, type, image, price, nom)
+              VALUES(:adress, :type, :image, :price, :nom)
             ");
     
 
   $statement ->bindValue(':adress', $adress);
-  $statement ->bindValue(':note', $note);
+  $statement ->bindValue(':nom', $nom);
   $statement ->bindValue(':type', $type);
-  $statement ->bindValue(':image', $image);
+  $statement ->bindValue(':image', $imagePath);
   $statement ->bindValue(':price', $price);
   $statement ->execute();
   }
 }
-
+//fonction permettant de randomiser le path d'une image 
+function randomString ($n){
+  $characters = 'azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN0123456789';
+  $str='';
+  for ($i=0; $i < $n ; $i++) {
+  $index = rand(0,strlen($characters)-1);
+  $str .= $characters[$index];
+    
+  }
+  return $str;
+}
 ?>
 
 <!DOCTYPE html>
@@ -77,22 +93,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
           <?php endforeach; ?>
         </div>
         <?php endif; ?> 
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
           <div mb-3>
             <div class="form-group">
               <label>Image du restaurant</label>
               <input type="file" name="image"> <br>
             </div>
+          </div> 
+           <div mb-3>
+            <label class="form-label">Nom</label>
+            <input class="form-control" type="text" name="nom" value="<?php echo $nom ?>" placeholder="nom">
+          </div>   
+          <div mb-3>
             <label class="form-label">Adresse</label>
             <input class="form-control" type="text" name="adress" value="<?php echo $adress ?>" placeholder="adresse">
-          </div>
-          <div mb-3>
-            <label class="form-label">Note</label>
-            <input type="text" class="form-control" name="note" value="<?php echo $note ?>" placeholder="note">
-          </div>
+          </div>  
           <div mb-3>  
-            <label class="form-label">Prix</label>
-            <input class="form-control" type="text" name="price" value="<?php echo $price ?>" placeholder="prix">
+            <label class="form-label">Prix moyen d'un menu</label>
+            <input class="form-control" type="text" name="price" value="<?php echo $price ?>" placeholder="prix moyen d'un menu">
           </div>
           
           <div mb-3>  
