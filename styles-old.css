@@ -1,12 +1,6 @@
-html {
-	font-family: "Segoe UI";
-}
-
 #page {
 	background-color: #e9e9e9;
-	display: flex;
-	justify-content: center;
-	height: 100%;
+	font-family: Arial;
 }
 .dark #page{
 	background-color: #000000;
@@ -14,15 +8,6 @@ html {
 
 }
 
-#footer {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 70px;
-}
-#footer-texts {
-	text-align: center;
-}
 #menu {
 	display: flex;
 	justify-content: space-around;
@@ -32,18 +17,9 @@ html {
 	justify-content: space-between;
 	width:800px;
 }
-
-#formulaire{
-	flex-direction: column;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-}
-
 .menu_item{
 	padding:5px;
-
+	border:2px #000000 solid;
 	border-radius: 12px;
 	font-size: 12px;
 }
@@ -124,67 +100,51 @@ html {
 	display:flex;
 	justify-content: right;
 }
-.mediumbar {
+#mediumbar {
 	display: flex;
 }
 #thefourth {
-}
-
-
-#list-1 {
-	background-color: #dcdcdc;
-	width: 80%;
 	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
 }
-
-#list {
-
-	background-color: #dcdcdc;
-	width: 80%;
-	display: grid;
-	gap: 40px 20px;
-	padding: 40px 20px;
-	grid-template-columns: repeat(auto-fit, 300px);
-	justify-content: space-evenly;
-	align-content: center;
-}
-
 .sheet{
-	border: 2px #000000 solid;
-	width: 300px;
-	align-self: center;
-}
 
-
-
-.sheet1{
 	margin: 20px 20px 20px 20px;
 	border: 2px #000000 solid;
-	width: 300px;
+
 }
 .dark .sheet {
 	border: 2px #ffffff solid;
 
 }
 
-.picture{
-	display: flex;
-	justify-content: center;
-	margin-top: 30px;
+#cochon{
+	margin: 20px 20px 20px 20px;
+}
+#oeuf{
+	margin: 20px 20px 20px 20px;
+}
+#japon {
+	margin: 20px 20px 20px 20px;
 }
 
-.picture img{
-	width:80%;
-	object-fit: cover;
-	height: 200px;
+#bar {
+	margin: 20px 20px 20px 20px;
 }
-
-.description{
+#texte1{
+text-align: center;
+}
+#texte2{
 	text-align: center;
-}
 
+}
+#texte3{
+	text-align: center;
+
+}
+#texte4{
+	text-align: center;
+
+}
 
 .checked {
 	color: orange;
@@ -195,7 +155,7 @@ html {
 	justify-content: center;
 	margin-top: 20px;
 }
-.mediumbar {
+#mediumbar {
 	display: flex;
 	justify-content: center;
 
