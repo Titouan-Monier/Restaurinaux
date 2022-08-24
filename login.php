@@ -5,10 +5,10 @@ session_start();
 
 //technique n°1
   // function mailfounder(mail){
-  // 	 for ($i=0; $i <  ; $i++) { 
+  // 	 for ($i=0; $i <  ; $i++) {
   // 	// code...
   // }
-  	
+
   // }
  // if (isset($_POST['email']) AND !empty($_POST['email']))
  // {
@@ -16,7 +16,7 @@ session_start();
  // $sql = "SELECT * FROM user";
  //  $host = 'localhost';
  //  $dbname = 'restaurinaux';
- //  $dsn = "mysql:host=$host;dbname=$dbname"; 
+ //  $dsn = "mysql:host=$host;dbname=$dbname";
  //  $username = 'root';
  //  $oui = '';
  //  $pdo = new PDO($dsn, $username, $oui);
@@ -34,8 +34,8 @@ session_start();
 
 
 
- 
-  
+
+
  //  if($desynchash == true && $mailbdd == $email){
  //  	echo 'connexion réussi';
 
@@ -43,7 +43,7 @@ session_start();
  // }
 //technique n°2
 
-	
+
 
  if (isset($_POST['email'])){
   $email = stripslashes($_REQUEST['email']);
@@ -52,18 +52,21 @@ session_start();
 
   $password = stripslashes($_REQUEST['password']);
   $password = mysqli_real_escape_string($conn, $password);
-    $query = "SELECT * FROM `user` WHERE email='$email' 
+    $query = "SELECT * FROM `user` WHERE email='$email'
   ";
- 
+
   $result = mysqli_query($conn,$query) or die(mysql_error($conn));
   $user = mysqli_fetch_assoc($result);
+
   if (mysqli_num_rows($result) == 1 OR (password_verify($password, $user['password']))) {
-  		
-  	$name= $user['last_name'];
+
+    //var_dump($user);
+
+  	/*$name= $user['last_name'];*/
 
   		//on met en place le cookie avec le prénom de l'utilisateur
-  	
-		setcookie(
+
+	/*	setcookie(
 	    'user',
 	    $name,
 
@@ -74,25 +77,26 @@ session_start();
 	    ]
 			);
 
-
+*/
   	$admin= $user['admin'];
 		$_SESSION['admin'] = $admin;
-		
+    $name= $user['last_name'];
+    $_SESSION['last_name'] = $name;
 
 
 		// $cookie_name = "user";
 		// $cookie_value = $name;
 		// setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
 
-  		
-  	
+
+
 	    //vérifier si l'utilisateur est un administrateur ou un utilisateur
 	    if ($user['admin'] == true) {
-	      header('location: crudfile.php');      
+	      header('location: crudfile.php');
 	    }else{
 	      header('location: index.php');
     	}
-  	
+
   }else{
     $message = "Le mail ou le mot de passe est incorrect.";
 
@@ -113,7 +117,7 @@ session_start();
 // 	$stmt->fetch();
 // 	if (password_verify($password, $pw)) {
 // 		 if ($user['admin'] == true) {
-// 	      header('location: crudfile.php');      
+// 	      header('location: crudfile.php');
 // 	    }else{
 // 	      header('location: index.php');
 //     }
@@ -123,7 +127,7 @@ session_start();
 
 
 
-?> 
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -132,12 +136,12 @@ session_start();
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-		<link rel="stylesheet" type="text/css" href="global.css"> 
+		<link rel="stylesheet" type="text/css" href="global.css">
 		<title>Login Restaurinaux </title>
 	</head>
 
 	<body>
-		
+
 		<section class="container-fluid bg"  name= "login">
 			<section class="row justify-content-center">
 				<section class="col-12 col-sm-6 col-md-3">
@@ -151,11 +155,11 @@ session_start();
 					    <label for="exampleInputPassword1">Mot de passe</label>
 					    <input type="password" class="form-control" name="password"  id="exampleInputPassword1" placeholder="Mot de passe">
 					  </div>
-					  <div id ="inscription"> 
+					  <div id ="inscription">
 					  	<a href="inscription.php">S'inscrire</a>
 					  </div>
 					</br>
-					 
+
 					  <button type="submit" name="submit" class="btn btn-primary btn-block">Connexion</button>
 					  	<?php if (! empty($message)) { ?>
     						<p class="errorMessage"><?php echo $message; ?></p>
@@ -164,9 +168,9 @@ session_start();
 				</section>
 
 			</section>
-				
+
 		</section>
-	
-			
+
+
 	</body>
 </html>
