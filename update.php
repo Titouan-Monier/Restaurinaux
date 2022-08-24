@@ -11,11 +11,20 @@ if(!$isConnected || !$isAdmin){
   }
 $pdo = new PDO('mysql:host=localhost;port=3306;dbname=restaurinaux','root','');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$id= $_GET['id'] ?? null;
+if (!$id){
+ header('Location: crudfile.php');
+ exit;
+}
+$statement=$pdo->prepare('SELECT * FROM restaurant WHERE id= :id');
+$statement->bindValue(':id', $id);
+$statement->execute();
+$restaurant = $statement->fetch(PDO::FETCH_ASSOC);
 $errors = [];
-$adress = '';
-$type='';
-$price='';
-$nom='';
+$adress = $restaurant['adress'];
+$type=$restaurant['type'];
+$price=$restaurant['price'];
+$nom=$restaurant['nom'];
 
 //fonction permettant de randomiser le path d'une image
 function randomString ($n){
@@ -56,16 +65,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
   if (empty($errors)){
     //attribution de la valeur image en la bougeant du formulaire vers mon dossier
     $image = $_FILES['image'] ?? null;
-    $imagePath='';
+    $imagePath= $restaurant['image'];
+
     if ($image && $image['tmp_name']) {
+      if ($restaurant['image']){
+        unlink($restaurant['image']);
+      }
       $imagePath= 'images/'.randomString(8).'/'.$image['name'];
       mkdir(dirname($imagePath));
       move_uploaded_file($image['tmp_name'],$imagePath);
     }
 
-  $statement = $pdo->prepare("INSERT INTO restaurant (adress, type, image, price, nom)
-              VALUES(:adress, :type, :image, :price, :nom)
-            ");
+  $statement = $pdo->prepare("UPDATE restaurant SET adress= :adress, type= :type, image= :image, price= :price, nom= :nom
+            WHERE id= :id");
 
 
   $statement ->bindValue(':adress', $adress);
@@ -73,6 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
   $statement ->bindValue(':type', $type);
   $statement ->bindValue(':image', $imagePath);
   $statement ->bindValue(':price', $price);
+  $statement ->bindValue(':id', $id);
   $statement ->execute();
   header('Location: crudfile.php');
   }
@@ -88,14 +101,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="global.css">
+    <link rel="stylesheet" type="text/css" href="app.css">
     <title>Création de Restaurant</title>
   </head>
 
   <body>
     <section class="container-fluid bg">
       <div class="form-container">
-        <h1>Création de Restaurant</h1>
+        <h1>Mise à jour du Restaurant <?php echo $restaurant['nom']?></h1>
+        <p>
+          <a href="crudfile.php" class="btn btn-secondary"> Retour </a>
+        </p>
         <?php if (!empty($errors)): ?>
         <div class= "alert alert-danger">
           <?php foreach ($errors as $error): ?>
@@ -104,6 +120,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         </div>
         <?php endif; ?>
         <form method="post" enctype="multipart/form-data">
+
+          <?php if ($restaurant['image']): ?>
+            <img src="<?php echo $restaurant['image'] ?>" class="updateImage">
+          <?php endif;?>
           <div mb-3>
             <div class="form-group">
               <label>Image du restaurant</label>
