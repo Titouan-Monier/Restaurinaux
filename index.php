@@ -1,18 +1,42 @@
 <?php
 // Récuperer les paramètre de l'url (query params)
 $type = $_GET["type"] ?? null;
+$search = $_GET["search"] ?? null;
 
 $pdo= new PDO ('mysql:host=localhost; port=3306; dbname=restaurinaux', 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 if(!$type) {
-  $statement = $pdo->prepare('SELECT * FROM restaurant ORDER BY id DESC');
-} else {
+  /*
+  SELECT `restaurant`.*,AVG(review.note),COUNT(review.id)
+  FROM `restaurant`
+  LEFT JOIN `review` ON
+  `restaurant`.id = `review`.`restaurant_id`
+  GROUP BY `restaurant`.`id`;
   $statement = $pdo->prepare("SELECT type, image, price, nom, adress, id FROM restaurant WHERE type='$type'");
+  */
+  $statement = $pdo->prepare(
+    "SELECT restaurant.*, AVG(review.note) AS average_note, COUNT(review.id) AS review_count
+    FROM restaurant
+    LEFT JOIN review ON
+    restaurant.id = review.restaurant_id
+    WHERE restaurant.nom LIKE '%$search%'
+    GROUP BY restaurant.id"
+  );
+} else {
+  $statement = $pdo->prepare(
+    "SELECT restaurant.*,AVG(review.note) AS average_note, COUNT(review.id) AS review_count
+    FROM restaurant
+    LEFT JOIN review ON
+    restaurant.id = review.restaurant_id
+    WHERE type='$type' AND restaurant.nom LIKE '%$search%'
+    GROUP BY restaurant.id"
+  );
 }
 
 $statement->execute();
 $restaurants = $statement->fetchAll(PDO::FETCH_ASSOC);
+
   // Initialiser la session
   session_start();
 
@@ -38,31 +62,47 @@ $restaurants = $statement->fetchAll(PDO::FETCH_ASSOC);
 	<body>
     <?php include 'navbar.php'; ?>
 		<div id="page">
-  		<div id="page-content">
-      <?php foreach ($restaurants as $i => $restaurant): ?>
-				<div class="sheet">
-					<p>
-						<a href="<?php echo $restaurant['image'] ?>" class="picture">
-							<img src= "	<?php echo $restaurant['image'] ?>"  alt="<?php echo $restaurant['nom'] ?>"/>
-						</a>
-						<div class="description">
-						  <?php echo $restaurant['nom'] ?></br>
-              <?php echo $restaurant['type'] ?></br>
-              <div>
-  							<span class="fas fa-star "data-star="0"> </span>
-  							<span class="fas fa-star "data-star="1"> </span>
-  							<span class="fas fa-star "data-star="2"> </span>
-  							<span class="fas fa-star "data-star="3"> </span>
-  							<span class="fas fa-star"data-star="4"> </span>
-                <a href="create-review.php?restaurantId=<?php echo $restaurant['id'] ?>" class="btn btn-secondary btn-sm">Noter</a>
-              </div>
-              <?php echo $restaurant['adress'] ?> </br>
-              <?php echo $restaurant['price'] ?> euros </br>
-						</div>
-					</p>
-				</div>
-      <?php endforeach;?>
-			</div>
+      <div id="page-content">
+    		<div id="page-search">
+          <form action="index.php">
+            <div class="input-group">
+              <input type="hidden" name="type" value="<?php echo $type;?>">
+              <input type="text" class="form-control" placeholder="Recherche de restaurant" name="search" value="<?php echo $search;?>">
+              <button class="btn btn-secondary" type="submit">Rechercher</button>
+            </div>
+          </form>
+        </div>
+    		<div id="page-list">
+        <?php foreach ($restaurants as $i => $restaurant): ?>
+  				<div class="sheet">
+  					<p>
+  						<a href="<?php echo $restaurant['image'] ?>" class="picture">
+  							<img src= "	<?php echo $restaurant['image'] ?>"  alt="<?php echo $restaurant['nom'] ?>"/>
+  						</a>
+  						<div class="description">
+
+  						 <strong> <?php echo $restaurant['nom'] ?> </strong></br></br>
+                <?php echo $restaurant['type'] ?></br>
+                <div>
+                  <span> <?php echo  number_format($restaurant['average_note'],1) ?></span>
+                  <?php for ($i = 1; $i <= 5; $i++): ?>
+                    <?php if (round($restaurant['average_note']) >= $i ) : ?>
+                      <span class="fas fa-star checked"> </span>
+                    <?php else : ?>
+                      <span class="fas fa-star"> </span>
+                    <?php endif; ?>
+                  <?php endfor;?>
+                  <span>(<?php echo $restaurant['review_count']?> avis) </span>
+                  <a href="create-review.php?restaurantId=<?php echo $restaurant['id'] ?>" class="btn btn-secondary btn-sm">Noter</a>
+                </div>
+                <?php echo $restaurant['adress'] ?> </br>
+                <?php echo $restaurant['price'] ?> euros </br>
+  						</div>
+  					</p>
+  				</div>
+        <?php endforeach;?>
+  			</div>
+      </div>
     </div>
     <?php include 'footer.php'; ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous">

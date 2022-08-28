@@ -80,8 +80,10 @@ session_start();
 */
   	$admin= $user['admin'];
 		$_SESSION['admin'] = $admin;
-    $name= $user['last_name'];
-    $_SESSION['last_name'] = $name;
+    $lastname= $user['last_name'];
+    $_SESSION['last_name'] = $lastname;
+    $firstname= $user['first_name'];
+    $_SESSION['first_name'] = $firstname;
     $id= $user['id'];
     $_SESSION['id'] = $id;
 
