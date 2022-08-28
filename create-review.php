@@ -16,7 +16,7 @@ $restaurant= $restaurants[0];
 
  // Vérifiez si l'utilisateur est connecté, sinon redirigez-le vers la page de connexion
   if(!isset($_SESSION["email"])){
-    header("Location: /login.php");
+    header("Location: login.php");
     exit();
 
   }
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $statement ->bindValue(':user_id', $userId);
     $statement ->bindValue(':restaurant_id', $restaurantId);
     $statement ->execute();
-    header('Location: /index.php');
+    header('Location: index.php');
   }
 }
 
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         <div class="description">
           <?php echo $restaurant['nom'] ?></br>
         </div>
-        <form method="post" action="/create-review.php?restaurantId=<?php echo $_GET["restaurantId"] ?>">
+        <form method="post" action="create-review.php?restaurantId=<?php echo $_GET["restaurantId"] ?>">
           <div id="formulaire">
 
             <label for="fname">Commentaire:</label><br>
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
           </div>
           <div>
             <br>
-            <a href="/index.php" type="button" class="btn btn-outline-secondary btn-sm annuler">Annuler</a>
+            <a href="index.php" type="button" class="btn btn-outline-secondary btn-sm annuler">Annuler</a>
             <button type="submit" class="btn btn-secondary btn-sm">Publier</button>
           </div>
          </div>

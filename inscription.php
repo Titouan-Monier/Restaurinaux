@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
   $statement ->bindValue(':gender', $gender);
   $statement ->bindValue(':city', $city);
   $statement ->execute();
-  header("Location: /login.php");
+  header("Location: login.php");
   }
 }
 
@@ -139,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 					</div>
 				</br>
 					<button type="submit" class="btn btn-primary ">Soumettre</button>
-          <a href="/login.php" class="btn btn-secondary"> Retour </a>
+          <a href="login.php" class="btn btn-secondary"> Retour </a>
 				</form>
 			</div>
 		</section>

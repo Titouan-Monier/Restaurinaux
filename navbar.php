@@ -11,26 +11,26 @@
 
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" href="/index.php?type=traditionnel">Traditionnel <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="index.php?type=traditionnel">Traditionnel <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="/index.php?type=bistrot">Bistrot <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="index.php?type=bistrot">Bistrot <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="/index.php?type=brasserie">Brasserie <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="index.php?type=brasserie">Brasserie <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="/index.php?type=gastronomique">Gastronomique<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="index.php?type=gastronomique">Gastronomique<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="/index.php?type=cuisine-du-monde">Cuisine du Monde<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="index.php?type=cuisine-du-monde">Cuisine du Monde<span class="sr-only">(current)</span></a>
         </li>
 
           <li class="nav-item active">
-            <a class="nav-link" href="/login.php">Se connecter<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="login.php">Se connecter<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="/login.php">Se déconnecter<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="login.php">Se déconnecter<span class="sr-only">(current)</span></a>
           </li>
         <div id= "filtres">
           <div><h3> <?php echo 'Bonjour ' .$_SESSION['last_name']. '! :)'; ?></h3></div>

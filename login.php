@@ -94,9 +94,9 @@ session_start();
 
 	    //vérifier si l'utilisateur est un administrateur ou un utilisateur
 	    if ($user['admin'] == true) {
-	      header('location: /crudfile.php');
+	      header('location: crudfile.php');
 	    }else{
-	      header('location: /index.php');
+	      header('location: index.php');
     	}
 
   }else{
@@ -119,9 +119,9 @@ session_start();
 // 	$stmt->fetch();
 // 	if (password_verify($password, $pw)) {
 // 		 if ($user['admin'] == true) {
-// 	      header('location: /crudfile.php');
+// 	      header('location: crudfile.php');
 // 	    }else{
-// 	      header('location: /index.php');
+// 	      header('location: index.php');
 //     }
 // 	}
 // }
@@ -159,7 +159,7 @@ session_start();
 					    <input type="password" class="form-control" name="password"  id="exampleInputPassword1" placeholder="Mot de passe">
 					  </div>
 					  <div id ="inscription">
-					  	<a href="/inscription.php">S'inscrire</a>
+					  	<a href="inscription.php">S'inscrire</a>
 					  </div>
 					</br>
 

@@ -18,7 +18,7 @@ $restaurants = $statement->fetchAll(PDO::FETCH_ASSOC);
 
  // Vérifiez si l'utilisateur est connecté, sinon redirigez-le vers la page de connexion
   if(!isset($_SESSION["email"])){
-    header("Location: /login.php");
+    header("Location: login.php");
     exit();
 
   }
@@ -54,7 +54,7 @@ $restaurants = $statement->fetchAll(PDO::FETCH_ASSOC);
   							<span class="fas fa-star "data-star="2"> </span>
   							<span class="fas fa-star "data-star="3"> </span>
   							<span class="fas fa-star"data-star="4"> </span>
-                <a href="/create-review.php?restaurantId=<?php echo $restaurant['id'] ?>" class="btn btn-secondary btn-sm">Noter</a>
+                <a href="create-review.php?restaurantId=<?php echo $restaurant['id'] ?>" class="btn btn-secondary btn-sm">Noter</a>
               </div>
               <?php echo $restaurant['adress'] ?> </br>
               <?php echo $restaurant['price'] ?> euros </br>

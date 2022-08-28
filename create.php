@@ -5,7 +5,7 @@ $isAdmin = $isConnected && ($_SESSION['admin'] === "1");
 
 // redirection si l'user n'est pas admin
 if(!$isConnected || !$isAdmin){
-    header("Location: /login.php");
+    header("Location: login.php");
     exit();
 
   }
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $statement ->bindValue(':image', $imagePath);
     $statement ->bindValue(':price', $price);
     $statement ->execute();
-    header('Location: /crudfile.php');
+    header('Location: crudfile.php');
   }
 }
 
