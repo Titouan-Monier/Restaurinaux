@@ -105,23 +105,5 @@ $restaurants = $statement->fetchAll(PDO::FETCH_ASSOC);
       </div>
     </div>
     <?php include 'footer.php'; ?>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous">
-    </script>
-    <script>
-    $(document).ready(function () {
-      resetStarColors();
-      $('.fa-star').mouseover (function (){
-        resetStarColors();
-        var curentIndex = parseInt($(this).data('star'));
-        for (var i = 1; i <= currentIndex; i++) {
-          $('fa-star:eq('+i+')').css('color','yelow');
-        }
-      });
-      $('.fa-star').mouseleave (function (){
-        resetStarColors();
-      });
-    });
-    </script>
-
 	</body>
 <html>
