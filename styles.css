@@ -8,10 +8,22 @@ html {
 	justify-content: center;
 	height: 100%;
 }
+
 .dark #page{
 	background-color: #000000;
 	color:#ffffff;
+}
 
+#navbar{
+	position: sticky;
+	top: 0px;
+}
+
+#footer-container {
+	width: 100%;
+	background-color: white;
+	position: sticky;
+	bottom: 0px;
 }
 
 #footer {
@@ -130,17 +142,30 @@ html {
 #thefourth {
 }
 
-
-#list-1 {
+#review-content {
 	background-color: #dcdcdc;
 	width: 80%;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
+	padding: 40px 20px;
+	box-shadow: 0px 0px 35px #b2b2b2;
 }
 
-#list {
+#review-content .description{
+	margin-top: 10px;
+	margin-bottom: 30px;
+	font-size: 25px;
+}
 
+#review-content .picture img{
+	object-fit: cover;
+	height: 300px;
+	box-shadow: 0px 0px 35px #424242;
+}
+
+#review-content .annuler{
+	margin-right: 20px
+}
+
+#page-content {
 	background-color: #dcdcdc;
 	width: 80%;
 	display: grid;
@@ -149,6 +174,7 @@ html {
 	grid-template-columns: repeat(auto-fit, 300px);
 	justify-content: space-evenly;
 	align-content: center;
+	box-shadow: 0px 0px 35px #b2b2b2;
 }
 
 .sheet{
@@ -175,7 +201,7 @@ html {
 	margin-top: 30px;
 }
 
-.picture img{
+#page-content .picture img{
 	width:80%;
 	object-fit: cover;
 	height: 200px;

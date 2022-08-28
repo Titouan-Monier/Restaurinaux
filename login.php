@@ -58,7 +58,7 @@ session_start();
   $result = mysqli_query($conn,$query) or die(mysql_error($conn));
   $user = mysqli_fetch_assoc($result);
 
-  if (mysqli_num_rows($result) == 1 OR (password_verify($password, $user['password']))) {
+  if (password_verify($password, $user['password'])) {
 
     //var_dump($user);
 
@@ -82,6 +82,8 @@ session_start();
 		$_SESSION['admin'] = $admin;
     $name= $user['last_name'];
     $_SESSION['last_name'] = $name;
+    $id= $user['id'];
+    $_SESSION['id'] = $id;
 
 
 		// $cookie_name = "user";
@@ -92,9 +94,9 @@ session_start();
 
 	    //vérifier si l'utilisateur est un administrateur ou un utilisateur
 	    if ($user['admin'] == true) {
-	      header('location: crudfile.php');
+	      header('location: /crudfile.php');
 	    }else{
-	      header('location: index.php');
+	      header('location: /index.php');
     	}
 
   }else{
@@ -117,9 +119,9 @@ session_start();
 // 	$stmt->fetch();
 // 	if (password_verify($password, $pw)) {
 // 		 if ($user['admin'] == true) {
-// 	      header('location: crudfile.php');
+// 	      header('location: /crudfile.php');
 // 	    }else{
-// 	      header('location: index.php');
+// 	      header('location: /index.php');
 //     }
 // 	}
 // }
@@ -137,13 +139,14 @@ session_start();
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 		<link rel="stylesheet" type="text/css" href="global.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
 		<title>Login Restaurinaux </title>
 	</head>
 
 	<body>
 
 		<section class="container-fluid bg"  name= "login">
-			<section class="row justify-content-center">
+			<section class="login-container row justify-content-center">
 				<section class="col-12 col-sm-6 col-md-3">
 					<form class="form-container" action="" method="post">
 					  <div class="form-group">
@@ -156,7 +159,7 @@ session_start();
 					    <input type="password" class="form-control" name="password"  id="exampleInputPassword1" placeholder="Mot de passe">
 					  </div>
 					  <div id ="inscription">
-					  	<a href="inscription.php">S'inscrire</a>
+					  	<a href="/inscription.php">S'inscrire</a>
 					  </div>
 					</br>
 
@@ -170,6 +173,8 @@ session_start();
 			</section>
 
 		</section>
+
+    <?php include 'footer.php';?>
 
 
 	</body>
