@@ -5,7 +5,7 @@ $isAdmin = $isConnected && ($_SESSION['admin'] === "1");
 
 // redirection si l'user n'est pas admin
 if(!$isConnected || !$isAdmin){
-    header("Location: login.php");
+    header("Location: /login.php");
     exit();
 
   }
@@ -13,7 +13,7 @@ $pdo = new PDO('mysql:host=localhost;port=3306;dbname=restaurinaux','root','');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $id= $_GET['id'] ?? null;
 if (!$id){
- header('Location: crudfile.php');
+ header('Location: /crudfile.php');
  exit;
 }
 $statement=$pdo->prepare('SELECT * FROM restaurant WHERE id= :id');
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
   $statement ->bindValue(':price', $price);
   $statement ->bindValue(':id', $id);
   $statement ->execute();
-  header('Location: crudfile.php');
+  header('Location: /crudfile.php');
   }
 }
 
@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
       <div class="form-container">
         <h1>Mise à jour du Restaurant <?php echo $restaurant['nom']?></h1>
         <p>
-          <a href="crudfile.php" class="btn btn-secondary"> Retour </a>
+          <a href="/crudfile.php" class="btn btn-secondary"> Retour </a>
         </p>
         <?php if (!empty($errors)): ?>
         <div class= "alert alert-danger">

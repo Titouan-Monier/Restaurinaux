@@ -6,7 +6,7 @@ $isAdmin = $isConnected && ($_SESSION['admin'] === "1");
 
 // redirection si l'user n'est pas admin
 if(!$isConnected || !$isAdmin){
-    header("Location: login.php");
+    header("Location: /login.php");
     exit();
 
   }
@@ -39,9 +39,9 @@ $restaurants = $statement->fetchAll(PDO::FETCH_ASSOC);
   <body>
     <h1>Restaurants CRUD</h1>
     <p>
-      <a href="create.php" class="btn btn-success"> Créer un Restaurant </a>
+      <a href="/create.php" class="btn btn-success"> Créer un Restaurant </a>
 
-        <a href="login.php" class="btn btn-secondary"> Retour </a>
+        <a href="/login.php" class="btn btn-secondary"> Retour </a>
 
     </p>
     <form>
@@ -78,9 +78,9 @@ $restaurants = $statement->fetchAll(PDO::FETCH_ASSOC);
           <td><a href="<?php echo $restaurant['image']?>"><img src="<?php echo $restaurant['image']?>"  class="thumb-image"> </a><td>
 
           <td>
-              <a href="update.php?id=<?php echo $restaurant['id']?>" class="btn btn-outline-primary"> Editer</a>
+              <a href="/update.php?id=<?php echo $restaurant['id']?>" class="btn btn-outline-primary"> Editer</a>
 
-           <form style="display: inline-block" method="post" action="delete.php">
+           <form style="display: inline-block" method="post" action="/delete.php">
               <input type="hidden" name="id" value="<?php echo $restaurant['id']?>">
               <button type="submit" class="btn btn-outline-danger"> Supprimer</button>
             </form>
