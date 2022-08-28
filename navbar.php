@@ -28,9 +28,6 @@
         </ul>
         <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
             <li class="nav-item active">
-              <a class="nav-link" href="login.php">Se connecter<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
               <a class="nav-link" href="deconnexion.php">Se déconnecter<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">

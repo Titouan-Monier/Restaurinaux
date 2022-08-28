@@ -41,7 +41,7 @@ $restaurants = $statement->fetchAll(PDO::FETCH_ASSOC);
     <p>
       <a href="create.php" class="btn btn-success"> Créer un Restaurant </a>
 
-        <a href="login.php" class="btn btn-secondary"> Retour </a>
+        <a class="btn btn-secondary" href="deconnexion.php"> Retour </a>
 
     </p>
     <form>
