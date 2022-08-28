@@ -1,8 +1,21 @@
+<?php
+
+  // Initialiser la session
+  session_start();
+
+ // Vérifiez si l'utilisateur est connecté, sinon redirigez-le vers la page de connexion
+  if(!isset($_SESSION["email"])){
+    header("Location: login.php");
+    exit();
+
+  }
+
+?>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
-		<link rel="stylesheet" href="styles.css" />
+		<link rel="stylesheet" href="styles-old.css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"/>
 		<script type="text/javascript" src="script.js" defer></script>
 		<title>Page d'accueil- Restaurinaux  </title>
@@ -43,10 +56,9 @@
 				</button>
 			</div>
 			<div id= "filtres-container">
+
 				<div id= "filtres">
-					<div id="filtre"> <h3> Filtres : </h3> </div>
-					<div id="notes"><h3> Notes </h3> </div>
-					<div id="prix"> <h3> Prix </h3> </div>
+					<div><h3><?php  echo 'Bonjour ' .$_SESSION['last_name']. '! :)';?> </h3></div>
 				</div>
 			</div>
 
@@ -55,8 +67,8 @@
 					<div id="twins1">
 						<div class="sheet">
 							<p>
-								<a href="images.jpg" id="cochon">
-									<img src= "images.jpg" width ="200" alt="Au cochon Dodue"/>
+								<a href="cochon.jpg" id="cochon">
+									<img src= "cochon.jpg" width ="200" alt="Au cochon Dodue"/>
 								</a>
 								<div id="texte1">
 									Au cochon dodue-Brasserie </br>
@@ -70,8 +82,8 @@
 						</div>
 						<div class="sheet">
 							<p>
-								<a href="index.jpg" id="oeuf">
-									<img src="index.jpg" width="155" alt="A l'oeuf cuit"/>
+								<a href="oeuf.jpg" id="oeuf">
+									<img src="oeuf.jpg" width="155" alt="A l'oeuf cuit"/>
 								</a>
 								<div id="texte2">
 									A l'oeuf cuit-Traditionelle </br>

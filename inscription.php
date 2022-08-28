@@ -2,18 +2,19 @@
 $pdo = new PDO('mysql:host=localhost;port=3306;dbname=restaurinaux','root','');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $errors = [];
+
 $email = '';
-$pwd = '';
+$password = '';
 $first_name='';
 $last_name='';
 $country='';
 $zip= '';
 $adress='';
-$gender=''; 
+$gender='';
 $city= '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
   $email = $_POST['email'];
-  $pwd = $_POST['pwd'];
+  $password = $_POST['password'];
   $first_name = $_POST['first_name'];
   $last_name = $_POST['last_name'];
   $country = $_POST['country'];
@@ -21,13 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
   $adress = $_POST['adress'];
   $gender = $_POST['gender'];
   $city = $_POST['city'];
-  $pwd = password_hash($pwd, PASSWORD_DEFAULT);
-  
+  $password = password_hash($password, PASSWORD_DEFAULT);
+
   if (!$email){
     $errors[] = 'Le mail est requis';
   }
-  
-  if (!$pwd){
+
+  if (!$password){
     $errors[] = 'Le mot de passe est requis';
   }
   if (!$first_name){
@@ -53,13 +54,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
   }
   if (empty($errors)){
 
-  $statement = $pdo->prepare("INSERT INTO user (email, pwd, first_name, last_name, country, city, zip, adress, gender)
-              VALUES(:email, :pwd, :first_name, :last_name, :country, :city, :zip, :adress, :gender)
+  $statement = $pdo->prepare("INSERT INTO user (email, password, first_name, last_name, country, city, zip, adress, gender)
+              VALUES(:email, :password, :first_name, :last_name, :country, :city, :zip, :adress, :gender)
             ");
-    
+
 
   $statement ->bindValue(':email', $email);
-  $statement ->bindValue(':pwd', $pwd);
+  $statement ->bindValue(':password', $password);
   $statement ->bindValue(':first_name', $first_name);
   $statement ->bindValue(':last_name', $last_name);
   $statement ->bindValue(':zip', $zip);
@@ -68,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
   $statement ->bindValue(':gender', $gender);
   $statement ->bindValue(':city', $city);
   $statement ->execute();
+  header("Location: login.php");
   }
 }
 
@@ -82,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-		<link rel="stylesheet" type="text/css" href="global.css"> 
+		<link rel="stylesheet" type="text/css" href="global.css">
 		<title>Inscription Restaurinaux </title>
 	</head>
 
@@ -92,11 +94,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 				<h1>Inscription</h1>
 				<?php if (!empty($errors)): ?>
 				<div class= "alert alert-danger">
-					<?php foreach ($errors as $error): ?> 
+					<?php foreach ($errors as $error): ?>
 						<div> <?php echo $error; ?> <div>
 					<?php endforeach; ?>
 				</div>
-				<?php endif; ?>	
+				<?php endif; ?>
 				<form method="post">
 					<div mb-3>
 						<label class="form-label">email</label>
@@ -104,39 +106,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 					</div>
 					<div mb-3>
 						<label class="form-label">mot de passe</label>
-						<input type="password" class="form-control" id="exampleInputPassword1" name="pwd" value="<?php echo $pwd ?>" placeholder="mot de passe">
+						<input type="password" class="form-control" id="exampleInputPassword1" name="password" value="<?php echo $password ?>" placeholder="mot de passe">
 					</div>
-					<div mb-3>	
+					<div mb-3>
 						<label class="form-label">Nom</label>
 						<input class="form-control" type="text" name="first_name" value="<?php echo $first_name ?>" placeholder="nom">
 					</div>
-					<div mb-3>	
+					<div mb-3>
 						<label class="form-label">Prénom</label>
 						<input class="form-control" type="text" name="last_name" value="<?php echo $last_name ?>" placeholder="prénom">
 					</div>
-					<div mb-3>	
+					<div mb-3>
 						<label for="gender">Genre</label><br>
 					    <input name="gender" value="m" checked="" type="radio">Homme
 					    <input name="gender" value="f" type="radio">Femme<br><br>
 					</div>
-					<div mb-3>	
+					<div mb-3>
 						<label class="form-label">Pays</label>
 						<input class="form-control" type="text" name="country" value="<?php echo $country ?>" placeholder="pays">
 					</div>
-					<div mb-3>	
+					<div mb-3>
 						<label class="form-label">Ville</label>
 						<input class="form-control" type="text" name="city" value="<?php echo $city ?>" placeholder="ville">
 					</div>
-					<div mb-3>	
+					<div mb-3>
 						<label class="form-label">Code postal</label>
 						<input class="form-control" type="text" name="zip" value="<?php echo $zip ?>" placeholder="code postal">
 					</div>
-					<div mb-3>	
+					<div mb-3>
 						<label class="form-label">Adresse</label>
 						<input class="form-control" type="text" name="adress" value="<?php echo $adress ?>" placeholder="adresse">
 					</div>
 				</br>
 					<button type="submit" class="btn btn-primary ">Soumettre</button>
+          <a href="login.php" class="btn btn-secondary"> Retour </a>
 				</form>
 			</div>
 		</section>
